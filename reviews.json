@@ -1,0 +1,42 @@
+{
+  "averageRating": 10.0,
+  "reviewCount": 4,
+  "reviews": [
+    {
+      "name": "James",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    },
+    {
+      "name": "Jamess",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    },
+    {
+      "name": "Jamesss",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    },
+    {
+      "name": "James",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    },
+    {
+      "name": "Jamess",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    },
+    {
+      "name": "Jamesss",
+      "country": "France",
+      "rating": 10,
+      "comment": "Everything was great: the facilities, the staff, the breakfast"
+    }
+  ]
+}

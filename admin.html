@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Silk Road Guesthouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin/admin.css">
+</head>
+<body>
+
+  <!-- Login Overlay -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-box">
+      <div class="brand-mark">SR</div>
+      <h1>Admin Portal</h1>
+      <p>Enter your password to manage the guesthouse.</p>
+      <input type="password" id="admin-password" placeholder="Password (silkroad2026)" autocomplete="off">
+      <button id="login-btn">Enter Dashboard</button>
+      <p class="login-error" id="login-error">Incorrect password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard" id="dashboard" style="display:none;">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">SR</span>
+        <div>
+          <strong>SILK ROAD</strong>
+          <small>ADMIN PANEL</small>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="#" class="active" data-target="overview">Overview</a>
+        <a href="#" data-target="bookings">Bookings</a>
+        <a href="#" data-target="reviews">Reviews</a>
+        <a href="#" data-target="rooms">Rooms & Pricing</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" target="_blank">↗ View Live Site</a>
+        <a href="#" id="logout-btn">Log Out</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Overview Tab -->
+      <section id="tab-overview" class="tab-panel active">
+        <header class="page-header">
+          <h2>Dashboard Overview</h2>
+          <p>Welcome back. Here is what is happening at Silk Road Guesthouse.</p>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Bookings</span>
+            <strong class="stat-value" id="stat-bookings">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Pending Reviews</span>
+            <strong class="stat-value" id="stat-reviews">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Est. Revenue (Confirmed)</span>
+            <strong class="stat-value" id="stat-revenue">₹0</strong>
+          </div>
+        </div>
+
+        <div class="recent-activity">
+          <h3>Recent Bookings</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Mobile</th>
+                <th>Room</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-bookings-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Bookings Tab -->
+      <section id="tab-bookings" class="tab-panel">
+        <header class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <h2>Manage Bookings</h2>
+            <p>Review guest enquiries and confirm their stays.</p>
+          </div>
+          <div class="search-container">
+            <input type="text" id="guest-search" placeholder="🔍 Search by name, email, or mobile...">
+          </div>
+        </header>
+        
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Guest Name</th>
+                <th>Contact</th>
+                <th>Room</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Reviews Tab -->
+      <section id="tab-reviews" class="tab-panel">
+        <header class="page-header">
+          <h2>Manage Reviews</h2>
+          <p>Approve guest reviews to show them on the live website scroller.</p>
+        </header>
+        
+        <div class="reviews-grid" id="reviews-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Rooms Tab -->
+      <section id="tab-rooms" class="tab-panel">
+        <header class="page-header">
+          <h2>Rooms & Pricing</h2>
+          <p>Update nightly rates, manage images, and add new rooms.</p>
+        </header>
+        
+        <!-- Add New Room Card -->
+        <div class="add-room-card">
+          <h3>Add New Room</h3>
+          <div class="add-room-form">
+            <div>
+              <label>Room Name</label>
+              <input type="text" id="new-room-name" placeholder="e.g. Executive Suite">
+            </div>
+            <div>
+              <label>Nightly Price (₹)</label>
+              <input type="number" id="new-room-price" placeholder="e.g. 5000">
+            </div>
+            <div>
+              <label>Room Image</label>
+              <input type="file" id="new-room-image" accept="image/*">
+            </div>
+            <button onclick="addNewRoom()">+ Add Room</button>
+          </div>
+        </div>
+
+        <div class="room-settings-grid" id="room-settings-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="admin/admin.js"></script>
+</body>
+</html>
