@@ -125,30 +125,42 @@ function buildGallery(paths) {
   });
 }
 
-const GALLERY_DIR = 'assets/gallery/';
+// 1. Try to fetch the directory listing from the server
+fetch('/gallery/')
+  .then(res => {
+    if (!res.ok) throw new Error('Directory listing blocked');
+    return res.text();
+  })
+  .then(html => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const links = Array.from(doc.querySelectorAll('a'));
+    const validExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'];
+    
+    const images = links
+      .map(a => a.getAttribute('href'))
+      .filter(href => {
+        if (!href) return false;
+        // Ignore subdirectories or parent directory links
+        if (href.endsWith('/') || href.startsWith('?')) return false;
+        // Check if it ends with a valid image extension
+        return validExtensions.some(ext => href.toLowerCase().endsWith(ext));
+      })
+      .map(href => `assets/gallery/${href.split('/').pop()}`); // Ensure clean path
 
-async function fromManifest(url = GALLERY_DIR + 'images.json') {
-  const res = await fetch(url, { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`manifest ${res.status}`);
-  const data = await res.json();
-  const names = data
-    .map(e => typeof e === 'string' ? e : (e.file || e.name || e.src))
-    .filter(Boolean);
-  if (!names.length) throw new Error('manifest empty');
-  return names.map(n => GALLERY_DIR + n.split('/').pop());
-}
-
-fromManifest()
-  .then(paths => {
-    photoPaths = [...new Set(paths)].sort((a, b) =>
-      a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
-    );
+    if (images.length === 0) throw new Error('No images found in directory');
+    
+    // Sort alphabetically to maintain a consistent order
+    images.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+    
+    photoPaths = images;
     buildGallery(photoPaths);
   })
   .catch(err => {
-    console.warn('Gallery manifest unavailable:', err);
-    photoPaths = [];
-    buildGallery(photoPaths); // empty state — or restore your old 24-image fallback here
+    console.warn('Could not scan directory (server likely blocks listing). Using fallback 24 images.', err);
+    // Fallback: Default to 24 hardcoded images
+    photoPaths = Array.from({length: 24}, (_, i) => `assets/gallery/image-${String(i + 1).padStart(2, '0')}.jpg`);
+    buildGallery(photoPaths);
   });
 
 
