@@ -126,7 +126,7 @@ function buildGallery(paths) {
 }
 
 // 1. Try to fetch the directory listing from the server
-fetch('/gallery/')
+fetch('gallery/')
   .then(res => {
     if (!res.ok) throw new Error('Directory listing blocked');
     return res.text();
