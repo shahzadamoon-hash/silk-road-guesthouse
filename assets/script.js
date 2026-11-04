@@ -1,4 +1,4 @@
-const url = "http://localhost:5000"
+const url = "https://silk-road-guesthouse-py.vercel.app"
 const preloader = document.querySelector('.preloader');
 window.addEventListener('load', () => setTimeout(() => preloader.classList.add('done'), 350));
 
